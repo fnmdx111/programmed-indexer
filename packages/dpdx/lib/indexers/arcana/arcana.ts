@@ -2,7 +2,7 @@
 
 import {PlayerBestIndexer} from "../../model/indexer"
 import {PlayerBest} from "../../model/generic/player"
-import fetch from "node-fetch"
+import * as fetchT from "node-fetch"
 import {Chart, Music} from "../../model/generic/meta"
 import {makeIndex, rawChartToChart, rawMusicToMusic, rawPlayerBestToPlayerBest} from "./misc"
 
@@ -13,7 +13,8 @@ export class ArcanaIndexer implements PlayerBestIndexer {
     constructor(
         private readonly version: number,
         token: string,
-        baseUrl: string) {
+        baseUrl: string,
+        private readonly fetch: typeof fetchT.default) {
         this.headers = {
             Authorization: `Bearer ${token}`
         }
@@ -21,7 +22,7 @@ export class ArcanaIndexer implements PlayerBestIndexer {
     }
 
     private async getPlayerBestsUrl() {
-        return fetch(
+        return this.fetch(
             `${this.baseUrl}/${this.version.toString()}/`,
             {
                 headers: this.headers
@@ -37,7 +38,7 @@ export class ArcanaIndexer implements PlayerBestIndexer {
     }
 
     private async fetchBests(url: string): Promise<[string | undefined, PlayerBest[]]> {
-        const j = await fetch(url, {headers: this.headers}).then(r => r.json()).catch(e => {
+        const j = await this.fetch(url, {headers: this.headers}).then(r => r.json()).catch(e => {
             console.error(`Error while fetching bests ${e.message}`)
             throw e
         })

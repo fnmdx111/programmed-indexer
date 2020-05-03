@@ -1,28 +1,32 @@
 {
-  "name": "@fnmdx111/programmed-indexer-core",
+  "name": "@fnmdx111/programmed-indexer-cli",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "cli:run": "ts-node src/index.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.25.1",
+    "moment-timezone": "^0.5.28",
+    "node-fetch": "^2.6.0",
+    "table": "^5.4.6",
+    "yargs": "^15.3.1",
+    "@fnmdx111/programmed-indexer-core": "0.0.1",
+    "ts-node": "^8.10.1"
+  },
   "devDependencies": {
     "@types/moment-timezone": "^0.5.13",
-    "@types/papaparse": "^5.0.3",
+    "@types/node-fetch": "^2.5.7",
+    "@types/table": "^5.0.0",
+    "@types/yargs": "^15.0.4",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "eslint": "^6.8.0",
     "typescript": "^3.8.3",
     "@types/node": "^12.12.37"
-  },
-  "dependencies": {
-    "@types/node-fetch": "^2.5.7",
-    "moment": "^2.25.1",
-    "moment-timezone": "^0.5.28",
-    "papaparse": "^5.2.0"
   },
   "eslintConfig": {
     "root": true,
@@ -76,5 +80,7 @@
       "@typescript-eslint/explicit-function-return-type": "off"
     }
   },
+  "author": "",
+  "license": "ISC",
   "private": true
 }

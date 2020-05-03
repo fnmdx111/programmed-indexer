@@ -1,8 +1,8 @@
 import yargs from "yargs"
-import {PlayStyle} from "../../model/generic/meta"
-import {playerBestCmp} from "../../model/generic/player"
-import {getIndexer, Service} from "./indexer"
-import {OutputFormat, performConsoleTabling, performSave} from "./output"
+import {PlayStyle} from "@fnmdx111/programmed-indexer-core/lib/model/generic/meta"
+import {playerBestCmp} from "@fnmdx111/programmed-indexer-core/lib/model/generic/player"
+import {getIndexer, Service} from "./cli/indexer"
+import {OutputFormat, performConsoleTabling, performSave} from "./cli/output"
 
 const argv = yargs.options({
     service: {

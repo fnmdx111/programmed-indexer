@@ -1,8 +1,8 @@
-import {PlayerBest} from "../../model/generic/player"
+import {PlayerBest} from "@fnmdx111/programmed-indexer-core/lib/model/generic/player"
 import {promises} from "fs"
 import {Service} from "./indexer"
-import moment from "moment"
-import {difficultyShorthand} from "../../model/generic/meta"
+import moment from "moment-timezone"
+import {difficultyShorthand} from "@fnmdx111/programmed-indexer-core/lib/model/generic/meta"
 import {table} from "table"
 
 const header = ["Difficulty", "Level", "Version", "Title", "Artist", "Genre", "Server", "Lamp", "Miss Count", "EX Score", "Timestamp", "Notes", "BPM"]

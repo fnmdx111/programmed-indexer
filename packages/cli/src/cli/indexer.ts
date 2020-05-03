@@ -1,9 +1,10 @@
-import {PlayerBestIndexer} from "../../model/indexer"
+import {PlayerBestIndexer} from "@fnmdx111/programmed-indexer-core/lib/model/indexer"
 import {readFileSync} from "fs"
-import {ArcanaIndexer} from "../../indexers/arcana/arcana"
-import {KonmaiIndexer} from "../../indexers/573/573"
-import {JsonIndexer} from "../../indexers/json/json"
-import {PlayStyle} from "../../model/generic/meta"
+import {ArcanaIndexer} from "@fnmdx111/programmed-indexer-core/lib/indexers/arcana/arcana"
+import {KonmaiIndexer} from "@fnmdx111/programmed-indexer-core/lib/indexers/573/573"
+import {JsonIndexer} from "@fnmdx111/programmed-indexer-core/lib/indexers/json/json"
+import {PlayStyle} from "@fnmdx111/programmed-indexer-core/lib/model/generic/meta"
+import fetch from "node-fetch"
 
 export type Service = "arcana" | "konmai" | "local-json"
 export interface GetIndexerOptions {
@@ -24,7 +25,7 @@ export function getIndexer(
     switch (service) {
     case "arcana": {
         const config: ArcanaConfig = JSON.parse(readFileSync(input || "./config.json").toString("utf8"))
-        return new ArcanaIndexer(config.version || 26, config.token, config.baseUrl)
+        return new ArcanaIndexer(config.version || 26, config.token, config.baseUrl, fetch)
     }
     case "konmai": {
         if (!input) {
