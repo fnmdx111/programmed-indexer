@@ -20,4 +20,4 @@ Read/fetch player best scores from Arcana and E-Amusement services into homogene
 
         npm install
         npx lerna run bootstrap
-        npx lerna run cli:run --service arcana --input <path/to/config.json> --outputFormat csv
+        npx lerna run cli:run -- -- --service arcana --input <path/to/config.json> --outputFormat csv
