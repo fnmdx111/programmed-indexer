@@ -2,10 +2,12 @@
   "name": "@fnmdx111/programmed-indexer-core",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "clean": "rm -rf lib"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +22,7 @@
   },
   "dependencies": {
     "@types/node-fetch": "^2.5.7",
-    "moment": "^2.25.1",
+    "moment": "2.24.0",
     "moment-timezone": "^0.5.28",
     "papaparse": "^5.2.0"
   },

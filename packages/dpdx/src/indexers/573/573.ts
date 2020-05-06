@@ -8,7 +8,7 @@ import {folder} from "./folder-conversion"
 import {int, lamp} from "./misc"
 import moment from "moment-timezone"
 
-const JAPANESE_HEADERS: Map<string, string> = new Map([
+export const JAPANESE_HEADERS: Map<string, string> = new Map([
     ["バージョン", "version"],
     ["タイトル", "title"],
     ["ジャンル", "genre"],

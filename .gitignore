@@ -3,3 +3,8 @@ config.json
 *.log
 build/
 .idea/
+*.js
+*.d.ts
+*.csv
+dist/
+*.exe

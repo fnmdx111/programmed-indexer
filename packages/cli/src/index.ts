@@ -1,6 +1,6 @@
 import yargs from "yargs"
-import {PlayStyle} from "@fnmdx111/programmed-indexer-core/lib/model/generic/meta"
-import {playerBestCmp} from "@fnmdx111/programmed-indexer-core/lib/model/generic/player"
+import {PlayStyle} from "@fnmdx111/programmed-indexer-core/dist/model/generic/meta"
+import {playerBestCmp} from "@fnmdx111/programmed-indexer-core/dist/model/generic/player"
 import {getIndexer, Service} from "./cli/indexer"
 import {OutputFormat, performConsoleTabling, performSave} from "./cli/output"
 
@@ -26,7 +26,7 @@ const argv = yargs.options({
         alias: "o"
     },
     outputFormat: {
-        choices: ["json", "csv"] as OutputFormat[],
+        choices: ["json", "csv", "konmai-27.csv", "konmai-pre-27.csv"] as OutputFormat[],
         default: "json" as OutputFormat
     },
     echo: {
@@ -49,7 +49,8 @@ async function main() {
         performSave(data, {
             output: argv.output,
             outputFormat: argv.outputFormat,
-            service: argv.service
+            service: argv.service,
+            playStyle: argv.playStyle || "SINGLE"
         })
     }
 

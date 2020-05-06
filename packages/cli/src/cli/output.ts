@@ -1,17 +1,21 @@
-import {PlayerBest} from "@fnmdx111/programmed-indexer-core/lib/model/generic/player"
+import {PlayerBest} from "@fnmdx111/programmed-indexer-core/dist/model/generic/player"
 import {promises} from "fs"
 import {Service} from "./indexer"
 import moment from "moment-timezone"
-import {difficultyShorthand} from "@fnmdx111/programmed-indexer-core/lib/model/generic/meta"
+import {difficultyShorthand, PlayStyle} from "@fnmdx111/programmed-indexer-core/dist/model/generic/meta"
 import {table} from "table"
+import {writeCsv} from "@fnmdx111/programmed-indexer-core/dist/model/serializer"
+import {ProgrammedIndexerCsv} from "@fnmdx111/programmed-indexer-core/dist/serializers/pidx/programmed-indexer-csv"
+import {KonmaiCsv} from "@fnmdx111/programmed-indexer-core/dist/serializers/573/573"
 
 const header = ["Difficulty", "Level", "Version", "Title", "Artist", "Genre", "Server", "Lamp", "Miss Count", "EX Score", "Timestamp", "Notes", "BPM"]
 
-export type OutputFormat = "json" | "csv"
+export type OutputFormat = "json" | "csv" | "konmai-pre-27.csv" | "konmai-27.csv"
 export interface PerformSaveOptions {
     output?: string
     outputFormat: OutputFormat
     service: Service
+    playStyle: PlayStyle
 }
 
 function toData(best: PlayerBest): (string | number)[] {
@@ -24,7 +28,7 @@ function toData(best: PlayerBest): (string | number)[] {
         best.chart.music.genre,
         best.server,
         best.lamp,
-        best.miss_count,
+        (best.miss_count || "").toString(),
         best.ex_score,
         moment(best.timestamp).tz(moment.tz.guess()).format("YYYY-MM-DD HH:mm:ss"),
         best.chart.notes || "N/A",
@@ -34,15 +38,17 @@ function toData(best: PlayerBest): (string | number)[] {
     ]
 }
 
-export function performSave(data: PlayerBest[], {output, outputFormat, service}: PerformSaveOptions) {
+export function performSave(data: PlayerBest[], {output, outputFormat, service, playStyle}: PerformSaveOptions) {
     let out
     if (outputFormat === "json") {
         out = JSON.stringify(data, undefined, 2)
     } else {
-        const buffer = []
-        buffer.push(header.join(","))
-        buffer.push(...data.map(toData).map(d => d.map(x => `"${x}"`).join(",")))
-        out = buffer.join("\n")
+        const csv = {
+            "konmai-27.csv": new KonmaiCsv(playStyle, "new"),
+            "konmai-pre-27.csv": new KonmaiCsv(playStyle, "old"),
+            "csv": new ProgrammedIndexerCsv()
+        }[outputFormat]
+        out = writeCsv(csv, data)
     }
 
     return promises.writeFile(

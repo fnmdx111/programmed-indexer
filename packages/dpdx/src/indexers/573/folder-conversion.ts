@@ -31,7 +31,16 @@ const FOLDERS = [
 ]
 
 const FOLDER_INDEX: Map<string, number> = new Map(FOLDERS.map((f, i) => [f, i + 1]))
+const FOLDER_INDEX_INV: Map<number, string> = new Map(FOLDERS.map((f, i) => [i + 1, f]))
 
 export function folder(versionName: string): number {
     return FOLDER_INDEX.get(versionName)!
+}
+
+export function versionName(folder: number): string {
+    const name = FOLDER_INDEX_INV.get(folder);
+    if (!name) {
+        console.warn(`Cannot find version name for folder ${folder}, using 1st&substream`)
+    }
+    return name || "1st&substream"
 }

@@ -14,7 +14,7 @@ export interface PlayerBest {
     readonly server: ServiceType
     readonly lamp: LampType
     readonly ex_score: number
-    readonly miss_count: number
+    readonly miss_count?: number
     readonly timestamp: Date
 }
 
