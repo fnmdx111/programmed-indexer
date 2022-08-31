@@ -23,7 +23,7 @@
   "dependencies": {
     "@types/node-fetch": "^2.5.7",
     "moment": "2.24.0",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.35",
     "papaparse": "^5.2.0"
   },
   "eslintConfig": {
